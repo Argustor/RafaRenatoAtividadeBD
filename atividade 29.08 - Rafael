@@ -1,0 +1,48 @@
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+DROP DATABASE IF EXISTS atividade_pratica;
+
+CREATE DATABASE atividade_pratica;
+
+USE atividade_pratica;
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+CREATE TABLE cidade(
+	id_cidade INT NOT NULL KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+	ativo ENUM('S','N') NOT NULL DEFAULT 'S'
+);
+
+INSERT INTO cidade(nome) VALUES
+("Paranavaí"),
+("Maringá"),
+("Londrina");
+
+CREATE TABLE endereco(
+	id_endereco INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    rua VARCHAR(100) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
+    bairro VARCHAR(50) NOT NULL,
+    complemento VARCHAR(150),
+    ativo ENUM('S','N') NOT NULL DEFAULT 'S',
+    id_cidade INT NOT NULL,
+    CONSTRAINT cidade_endereco FOREIGN KEY (id_cidade) REFERENCES cidade(id_cidade)
+);
+
+INSERT INTO endereco(rua, numero, bairro, complemento, id_cidade) VALUES
+("Rua Padre Francisco", "793", "Bairro 1", NULL, 1),
+("Rua Professora Helena", "109", "Bairro 99", "Apartamento", 3),
+("Rua Irmão Pedrinho", "478", "Bairro 52", NULL, 2);
+	
+CREATE TABLE autor(
+	id_autor INT NOT NULL PRiMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(150) NOT NULL,
+    nacionalidade CHAR(2) NOT NULL,
+    ativo ENUM('S','N') NOT NULL DEFAULT 'S'
+);
+
+INSERT INTO autor(nome, nacionalidade) VALUE
+("Vitor Tavares de Oliveira", 'BR'),
+("Renato Augusto Platz Neto", 'BR'),
+("Carla Santos de Oliveira", 'BR');
